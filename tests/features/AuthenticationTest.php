@@ -7,29 +7,7 @@ use App\User;
 
 class AuthenticationTest extends TestCase
 {
-	function test_login_user()
-	{
-		// Having
-		$name = 'Ana Cecilia';
-		$email = 'admin@gmail.com';
-		$password = 'secret';
-
-		$user = $this->defaultUser([
-			'name' => $name,
-			'email' => $email,
-			'password' => bcrypt($password)
-		]);
-			
-		// When
-			$this->visit('/login')
-				->type($email, 'email')
-				->type($password, 'password')
-				->press('Login');
-		// Then
-			$this->seePageIs('home');
-	}
-
-	function test_user_access($value='')
+	function test_user_access()
 	{
 		// Having
 		$user = $this->defaultUser();
@@ -40,6 +18,7 @@ class AuthenticationTest extends TestCase
             'user_id'   	=> $user->id,
             'facultad_id'	=> $facultad->id,
             'sede_id'		=> $sede->id,
+            'type_id'		=> 1,
         ]);
 
 		// When
@@ -65,6 +44,7 @@ class AuthenticationTest extends TestCase
             'user_id'   	=> $user->id,
             'facultad_id'	=> $facultad->id,
             'sede_id'		=> $sede->id,
+            'type_id'		=> 1,
         ]);
 
 		$other_fac = Facultad::find(2);

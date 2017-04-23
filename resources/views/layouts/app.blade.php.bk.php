@@ -43,15 +43,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <?php 
-                        if(!Auth::guest()){
-                            if($options = Auth::user()->acceder){
-                                foreach($options as $opcion => $line){
-                                    echo $line;
-                                }
-                            }
-                        }        
-                        ?>
+                        &nbsp;
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -87,7 +79,7 @@
 
         @yield('content')
     </div>
-    @yield('footer')
+
     <!-- Scripts -->
     <script src="/js/app.js"></script>
 </body>

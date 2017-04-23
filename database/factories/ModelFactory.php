@@ -40,3 +40,32 @@ $factory->define(App\Acceso::class, function (Faker\Generator $faker, $attribute
     ];
 });
 
+$factory->define(App\Type::class, function (Faker\Generator $faker)
+{
+    return [
+       'name' => 't'.$faker->unique()->word
+    ];
+});
+/**
+$factory->define(App\Menu::class, function (Faker\Generator $faker)
+{
+    return [
+       'name'   => 'm'.$faker->unique()->word,
+       'level'  => $faker->randomDigitNotNull,
+       'order'  => $faker->randomDigitNotNull,
+       'route'  => $faker->word,
+       'parameter' => $faker->word,
+    ];
+});
+*/
+
+$factory->define(App\TypeMenu::class, function (Faker\Generator $faker)
+{
+    return [
+        'type_id' => $faker->randomElement([1,2,3,4,5,6,7,8,9,10,11]),
+        'menu_id' => $faker->randomElement([1,2,3,4,5]),
+    ];
+});
+
+
+

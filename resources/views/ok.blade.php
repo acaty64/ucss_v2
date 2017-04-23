@@ -15,3 +15,6 @@
     </div>
 </div>
 @endsection
+@section('footer')
+ok.blade.php
+@endsection

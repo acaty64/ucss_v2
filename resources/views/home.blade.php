@@ -40,3 +40,7 @@
     </div>
 </div>
 @endsection
+
+@section('footer')
+home.blade.php
+@endsection

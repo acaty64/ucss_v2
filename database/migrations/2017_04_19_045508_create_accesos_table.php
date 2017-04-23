@@ -25,6 +25,8 @@ class CreateAccesosTable extends Migration
             $table->unSignedInteger('sede_id');
             //$table->foreign('sede_id')->references('id')->on('sedes');
 
+            $table->unSignedInteger('type_id');
+
             $table->rememberToken();
             $table->timestamps();
         });
