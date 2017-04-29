@@ -58,12 +58,9 @@ class User extends Authenticatable
 
             $level0 = $original_menus->where('pivot_level',0)->sortBy('pivot_order')->all();
             foreach($level0 as $level){
-
-                if(Menu::find($level['pivot_menu_id'])->route){
+                if($level['href']){
                     $submenu = false;
-                    $href = Menu::find($level['pivot_menu_id'])->route;
-                    $description = Menu::find($level['pivot_menu_id'])->name;
-                    $option = "<li><a href='".$href."'>".$description."</a></li>";
+                    $option = "<li><a href='".$level['href']."'>".$level['name']."</a></li>";
                     $options[] = $option;
                 }else{
                     $submenu = true;

@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Acceso;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -32,6 +34,34 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Styde\Html\Alert\Middleware::class,
         ],
+
+        'master' => [
+            'web',
+            'auth',
+            'consulta',
+            'docente',
+            'responsable',
+            Authorize::class.':is_master,'.Acceso::class,
+        ],
+
+        'consulta' => [
+            'web',
+            'auth',
+            Authorize::class.':is_consulta,'.Acceso::class,
+        ],
+
+        'docente' => [
+            'web',
+            'auth',
+            Authorize::class.':is_docente,'.Acceso::class,
+        ],
+
+        'responsable' => [
+            'web',
+            'auth',
+            'docente',
+            Authorize::class.':is_responsable,'.Acceso::class,
+        ],        
 
         'api' => [
             'throttle:60,1',
