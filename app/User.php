@@ -101,8 +101,8 @@ class User extends Authenticatable
         if(!$type_id){
             return false;
         }else{
-            $type = Type::find($type_id)->name;
-            return $type;
+            $ctype = Type::find($type_id)->name;
+            return $ctype;
         }
     }
 

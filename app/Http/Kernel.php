@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Acceso;
+use Illuminate\Auth\Middleware\Auth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 

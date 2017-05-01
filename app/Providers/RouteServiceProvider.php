@@ -59,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'master',
-            'namespace' => $this->namespace.'\Master',
+            'namespace' => $this->namespace,
             'prefix' => 'master',
         ], function ($router) {
             require base_path('routes/master.php');

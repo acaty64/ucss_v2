@@ -32,7 +32,7 @@ class MasterMenuTest extends TestCase
 		// Then
 		$this->see('Menus')
 			->click('Menus')
-			->see('Menus Index');
+			->see('Menu Index');
 	}
 
 	function test_a_user_consulta_dont_see_masters_menu()

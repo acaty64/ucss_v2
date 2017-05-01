@@ -42,7 +42,7 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav" name="leftside">
                         <?php 
                         if(!Auth::guest()){
                             if($options = Auth::user()->acceder){

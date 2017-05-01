@@ -5,14 +5,8 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Request;
 
 // ROUTES
-/**
+
 Route::get('menu/index', [
 		'as'	=> 'menu.index',
 		'uses'	=> 'master\MenuController@index',	
 	])->middleware(Authorize::class.':is_master,'.Acceso::class);
-*/
-
-Route::get('menu/index',function()
-{
-	dd('menu/index');
-});
