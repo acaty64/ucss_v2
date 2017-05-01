@@ -7,6 +7,7 @@ use App\Sede;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -32,13 +33,14 @@ class HomeController extends Controller
 
     public function acceso(Request $request)
     {
-        $facultad=Facultad::where('wfacultad', $request->sel_facu)->get();
-        $sede=Sede::where('wsede',$request->sel_sede)->get();
+        $facultad=Facultad::where('wfacultad', $request->sel_facu)->first();
+        $sede=Sede::where('wsede',$request->sel_sede)->first();
 
-        Auth::user()->facultad_id = $facultad[0]->id;
-        Auth::user()->cfacultad = $facultad[0]->cfacultad;
-        Auth::user()->sede_id = $sede[0]->id;
-        Auth::user()->csede = $sede[0]->csede;
+        \Cache::put('facultad_id',$facultad->id,60);
+        \Cache::put('cfacultad',$facultad->cfacultad,60);
+        \Cache::put('sede_id',$sede->id,60);
+        \Cache::put('csede',$sede->csede,60);
+
         $usuario = Auth::user();
 
         if ($usuario->acceder) {

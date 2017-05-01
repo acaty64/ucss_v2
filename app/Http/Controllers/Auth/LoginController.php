@@ -43,9 +43,12 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         if(Auth::user()){
-            Auth::user()->facultad_id = null;
-            Auth::user()->sede_id = null;
-            Auth::user()->type_id = null;
+            \Cache::forget('facultad_id');
+            \Cache::forget('cfacultad');
+            \Cache::forget('sede_id');
+            \Cache::forget('csede');
+            \Cache::forget('type_id');
+            \Cache::forget('ctype');
         }        
 
         $this->guard()->logout();

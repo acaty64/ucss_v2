@@ -8,6 +8,7 @@ use App\Type;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -33,22 +34,31 @@ class User extends Authenticatable
 
     public function getNameLoginAttribute()
     {
+        $cfacultad = Cache::get('cfacultad');
+        $csede = Cache::get('csede');
+        $ctype = Cache::get('ctype');
+
         $rpta = $this->name;
-        if ($this->sede_id) {
-            $rpta = $rpta . ' (' . $this->cfacultad . ' - ' . $this->csede . ')';
+        if ($cfacultad) {
+            $rpta = $rpta . ' (' . $cfacultad . ' - ' . $csede . ')';
         }
-        if (notNullValue($this->type_id)) {
-            $rpta = $rpta . ' (' . $this->type . ')' ;
+        if (notNullValue($ctype)) {
+            $rpta = $rpta . ' (' . $ctype . ')' ;
         }
         return $rpta;
     }
 
     public function getAccederAttribute($value)
     {
-        
-        $ok = Acceso::where('user_id', $this->id)->where('facultad_id', $this->facultad_id)->where('sede_id', $this->sede_id)->first();
-        if (count($ok) && $this->facultad_id) {
-            Auth::user()->type_id = $ok->type_id;
+        $facultad_id = Cache::get('facultad_id');
+        $sede_id = Cache::get('sede_id');
+        $ok = Acceso::where('user_id', $this->id)->where('facultad_id', $facultad_id)->where('sede_id', $sede_id)->first();
+        if (count($ok) && $facultad_id) {
+            $type_id = $ok->type_id;
+            Cache::put('type_id', $type_id, 60);
+            $ctype = Type::find($type_id)->name;
+            Cache::put('ctype', $ctype, 60);
+
             $menus = Type::find($ok->type_id)->menus;
 
             $original_menus = collect([]);
@@ -93,27 +103,5 @@ class User extends Authenticatable
         } else {
             return false;
         }
-    }
-
-    public function getTypeAttribute($value='')
-    {
-        $type_id = $this->type_id;
-        if(!$type_id){
-            return false;
-        }else{
-            $ctype = Type::find($type_id)->name;
-            return $ctype;
-        }
-    }
-
-    public function getUserMenuAttribute($value='')
-    {
-        if($this->acceder){
-            $opciones = Menu::where('type_id',$this->type_id)->get();
-            return $opciones;            
-        }else{
-            return false;
-        }
-
     }
 }

@@ -35,6 +35,7 @@ require __DIR__.'/../bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+
 /*
 |--------------------------------------------------------------------------
 | Run The Application
@@ -52,6 +53,15 @@ $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+
+//Clear values on cache
+\Cache::put('facultad_id',null,60);
+\Cache::put('cfacultad',null,60);
+\Cache::put('sede_id',null,60);
+\Cache::put('csede',null,60);
+\Cache::put('type_id',null,60);
+\Cache::put('ctype',null,60);
+// End Clear values on cache
 
 $response->send();
 

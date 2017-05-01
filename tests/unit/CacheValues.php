@@ -8,8 +8,9 @@ use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Cache;
 
-class LoginValuesTest extends TestCase
+class CacheValuesTest extends TestCase
 {
     /**
      * A basic test example.
@@ -18,6 +19,12 @@ class LoginValuesTest extends TestCase
      */
     public function test_auth_preliminar_value()
     {
+        // Clear cache values
+        
+        Cache:flush();
+
+        dd(Cache::get('facultad_id'));
+
         // Having
         User::create([
                 'name' => 'Jane Doe',
@@ -29,9 +36,10 @@ class LoginValuesTest extends TestCase
             ->seePageIs('/login')
             ->type('jdoe@gmail.com', 'email')
             ->type('secret','password')
-            ->press('Login');
+            ->press('Login')
+            ->see('Facultad y Sede');
         // Then
-        $this->assertEquals(null,Auth::user()->facu_id);
+        $this->assertEquals(null, Cache::get('facultad_id'));
 
     }
 
@@ -57,7 +65,7 @@ class LoginValuesTest extends TestCase
 
 		// Then
 		$this->see('Menus')
-			->assertEquals(1,Auth::user()->facultad_id);
+			->assertEquals(1, Cache::get('facultad_id'));
 
 /** TODO: with Laravel-Dusk
 		// When
