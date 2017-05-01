@@ -38,15 +38,16 @@ class User extends Authenticatable
             $rpta = $rpta . ' (' . $this->cfacultad . ' - ' . $this->csede . ')';
         }
         if (notNullValue($this->type_id)) {
-            $rpta = $rpta . ' (' . $this->type . ') ' ;
+            $rpta = $rpta . ' (' . $this->type . ')' ;
         }
         return $rpta;
     }
 
     public function getAccederAttribute($value)
     {
+        
         $ok = Acceso::where('user_id', $this->id)->where('facultad_id', $this->facultad_id)->where('sede_id', $this->sede_id)->first();
-        if (count($ok)) {
+        if (count($ok) && $this->facultad_id) {
             Auth::user()->type_id = $ok->type_id;
             $menus = Type::find($ok->type_id)->menus;
 
@@ -107,7 +108,6 @@ class User extends Authenticatable
 
     public function getUserMenuAttribute($value='')
     {
-        dd('user_menu');
         if($this->acceder){
             $opciones = Menu::where('type_id',$this->type_id)->get();
             return $opciones;            

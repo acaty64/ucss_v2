@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +16,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        dd("index");
+        dd('index');
             $menus = Menu::all();
             return view('menu/index');            
     }

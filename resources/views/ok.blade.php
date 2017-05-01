@@ -8,7 +8,8 @@
                 <div class="panel-heading">Acceso Admitido</div>
 
                 <div class="panel-body">
-                    Logueo correcto  
+                    <p>Logueo correcto</p>
+                    <p>Type: {{Auth::user()->ctype}}</p> 
                 </div>
             </div>
         </div>

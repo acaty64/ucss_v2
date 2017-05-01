@@ -30,7 +30,9 @@ class MasterMenuTest extends TestCase
 			->press('Acceder');
 
 		// Then
-		$this->see('Menus');
+		$this->see('Menus')
+			->click('Menus')
+			->see('Menus Index');
 	}
 
 	function test_a_user_consulta_dont_see_masters_menu()

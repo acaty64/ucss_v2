@@ -37,10 +37,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        $this->mapMasterRoutes();
-
         $this->mapWebRoutes();
 
+        $this->mapMasterRoutes();
+        
         //
     }
 
@@ -59,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'master',
-            'namespace' => $this->namespace,
+            'namespace' => $this->namespace.'\Master',
             'prefix' => 'master',
         ], function ($router) {
             require base_path('routes/master.php');

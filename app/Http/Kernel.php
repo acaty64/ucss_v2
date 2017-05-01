@@ -38,9 +38,6 @@ class Kernel extends HttpKernel
         'master' => [
             'web',
             'auth',
-            'consulta',
-            'docente',
-            'responsable',
             Authorize::class.':is_master,'.Acceso::class,
         ],
 
